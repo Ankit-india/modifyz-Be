@@ -14,10 +14,12 @@ import jakarta.persistence.*;
 @MappedSuperclass
 public class GenericAbstract {
 
+    // TODO -- need to make Custom unique Id and change datatype from long to String
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    // TODO -- need to find a solution to store readable dateCreate format like currentMilliSeconds
     @Column(name = "dateCreated")
     private LocalDateTime dateCreated;
 

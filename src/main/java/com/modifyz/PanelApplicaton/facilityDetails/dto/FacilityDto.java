@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FacilityDto {
 
-    private BigDecimal shopId;
+    private String shopId;
 
     private String serviceName;
 
@@ -23,7 +23,7 @@ public class FacilityDto {
     private String timeUnit;
 
     public static interface ShopIdStep {
-        ServiceNameStep withShopId(BigDecimal shopId);
+        ServiceNameStep withShopId(String shopId);
     }
 
     public static interface ServiceNameStep {
@@ -53,7 +53,7 @@ public class FacilityDto {
     public static class Builder
         implements ShopIdStep, ServiceNameStep, ImageStep, PriceStep, EstimatedTimeStep,
         TimeUnitStep, BuildStep {
-        private BigDecimal shopId;
+        private String shopId;
 
         private String serviceName;
 
@@ -68,12 +68,12 @@ public class FacilityDto {
         private Builder() {
         }
 
-        public static ShopIdStep servicesDto() {
+        public static ShopIdStep facilityDto() {
             return new Builder();
         }
 
         @Override
-        public ServiceNameStep withShopId(BigDecimal shopId) {
+        public ServiceNameStep withShopId(String shopId) {
             this.shopId = shopId;
             return this;
         }
