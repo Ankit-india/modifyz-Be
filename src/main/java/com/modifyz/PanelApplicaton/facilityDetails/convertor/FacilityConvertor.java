@@ -19,4 +19,16 @@ public class FacilityConvertor {
 
         return facility;
     }
+
+    public FacilityDto convertDto(Facility facility) {
+        FacilityDto facilityDto = FacilityDto.Builder.facilityDto()
+            .withShopId(facility.getShopId())
+            .withServiceName(facility.getServiceName())
+            .withImage(facility.getImage())
+            .withPrice(facility.getPrice())
+            .withEstimatedTime(facility.getEstimatedTime())
+            .withTimeUnit(facility.getTimeUnit())
+            .build();
+        return facilityDto;
+    }
 }

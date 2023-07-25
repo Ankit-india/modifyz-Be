@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Facility extends GenericAbstract {
 
     @Column(name = "shopId")
-    private BigDecimal shopId;
+    private String shopId;
 
     @Column(name = "serviceName")
     private String serviceName;
@@ -32,7 +32,7 @@ public class Facility extends GenericAbstract {
     @Column(name = "timeUnit")
     private String timeUnit;
 
-    public Facility(BigDecimal shopId, String serviceName, String image, BigDecimal price,
+    public Facility(String shopId, String serviceName, String image, BigDecimal price,
         BigDecimal estimatedTime, String timeUnit) {
         this.shopId = shopId;
         this.serviceName = serviceName;
@@ -43,7 +43,7 @@ public class Facility extends GenericAbstract {
     }
 
     public static interface ShopIdStep {
-        ServiceNameStep withShopId(BigDecimal shopId);
+        ServiceNameStep withShopId(String shopId);
     }
 
     public static interface ServiceNameStep {
@@ -73,7 +73,7 @@ public class Facility extends GenericAbstract {
     public static class Builder
         implements ShopIdStep, ServiceNameStep, ImageStep, PriceStep, EstimatedTimeStep,
         TimeUnitStep, BuildStep {
-        private BigDecimal shopId;
+        private String shopId;
 
         private String serviceName;
 
@@ -93,7 +93,7 @@ public class Facility extends GenericAbstract {
         }
 
         @Override
-        public ServiceNameStep withShopId(BigDecimal shopId) {
+        public ServiceNameStep withShopId(String shopId) {
             this.shopId = shopId;
             return this;
         }
