@@ -76,6 +76,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>modifyz-merchant-be-docker</finalName>
     </build>
 
 </project>
