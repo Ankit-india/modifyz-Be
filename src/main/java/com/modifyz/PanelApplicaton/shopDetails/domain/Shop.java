@@ -1,27 +1,30 @@
 package com.modifyz.PanelApplicaton.shopDetails.domain;
 
-import com.modifyz.PanelApplicaton.commons.utils.GenericAbstract;
+import com.modifyz.PanelApplicaton.commons.utils.idGenerator.GenericAbstract;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
 import java.util.List;
 import lombok.*;
 
-@Entity
-@Table(name = "shop")
+@Entity(name = "shop")
+@Table(name = "shop", indexes = {
+    @Index(name = "index_panNumber", columnList = "panNumber", unique = true)
+})
 @Getter
 @Setter
 @NoArgsConstructor
 public class Shop extends GenericAbstract {
 
-    @Column(name = "panCard")
-    private String panCard;
+    @Column(name = "panNumber", nullable = false)
+    private String panNumber;
 
-    @Column(name = "shopName")
+    @Column(name = "shopName", nullable = false)
     private String shopName;
 
-    @Column(name = "ownerName")
+    @Column(name = "ownerName", nullable = false)
     private String ownerName;
 
     @Column(name = "nickName")
@@ -33,22 +36,22 @@ public class Shop extends GenericAbstract {
     @Column(name = "images")
     private List<String> images;
 
-    @Column(name = "contactId")
-    private String contactId;
+    //@Column(name = "contactId")
+    //private String contactId;
 
-    public Shop(String panCard, String shopName, String ownerName, String nickName,
-        String description, List<String> images, String contactId) {
-        this.panCard = panCard;
+    public Shop(String panNumber, String shopName, String ownerName, String nickName,
+        String description,
+        List<String> images) {
+        this.panNumber = panNumber;
         this.shopName = shopName;
         this.ownerName = ownerName;
         this.nickName = nickName;
         this.description = description;
         this.images = images;
-        this.contactId = contactId;
     }
 
-    public static interface PanCardStep {
-        ShopNameStep withPanCard(String panCard);
+    public static interface panNumberStep {
+        ShopNameStep withpanNumber(String panNumber);
     }
 
     public static interface ShopNameStep {
@@ -68,11 +71,7 @@ public class Shop extends GenericAbstract {
     }
 
     public static interface ImagesStep {
-        ContactIdStep withImages(List<String> images);
-    }
-
-    public static interface ContactIdStep {
-        BuildStep withContactId(String contactId);
+        BuildStep withImages(List<String> images);
     }
 
     public static interface BuildStep {
@@ -80,9 +79,9 @@ public class Shop extends GenericAbstract {
     }
 
     public static class Builder
-        implements PanCardStep, ShopNameStep, OwnerNameStep, NickNameStep, DescriptionStep,
-        ImagesStep, ContactIdStep, BuildStep {
-        private String panCard;
+        implements panNumberStep, ShopNameStep, OwnerNameStep, NickNameStep, DescriptionStep,
+        ImagesStep, BuildStep {
+        private String panNumber;
 
         private String shopName;
 
@@ -94,18 +93,16 @@ public class Shop extends GenericAbstract {
 
         private List<String> images;
 
-        private String contactId;
-
         private Builder() {
         }
 
-        public static PanCardStep shop() {
+        public static panNumberStep shop() {
             return new Builder();
         }
 
         @Override
-        public ShopNameStep withPanCard(String panCard) {
-            this.panCard = panCard;
+        public ShopNameStep withpanNumber(String panNumber) {
+            this.panNumber = panNumber;
             return this;
         }
 
@@ -134,27 +131,20 @@ public class Shop extends GenericAbstract {
         }
 
         @Override
-        public ContactIdStep withImages(List<String> images) {
+        public BuildStep withImages(List<String> images) {
             this.images = images;
-            return this;
-        }
-
-        @Override
-        public BuildStep withContactId(String contactId) {
-            this.contactId = contactId;
             return this;
         }
 
         @Override
         public Shop build() {
             return new Shop(
-                this.panCard,
+                this.panNumber,
                 this.shopName,
                 this.ownerName,
                 this.nickName,
                 this.description,
-                this.images,
-                this.contactId
+                this.images
             );
         }
     }

@@ -1,6 +1,6 @@
 package com.modifyz.PanelApplicaton.facilityDetails.domain;
 
-import com.modifyz.PanelApplicaton.commons.utils.GenericAbstract;
+import com.modifyz.PanelApplicaton.commons.utils.idGenerator.GenericAbstract;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

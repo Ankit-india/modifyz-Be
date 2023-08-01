@@ -41,7 +41,7 @@ public class FacilityServiceImpl implements FacilityService {
 
     // TODO -- will be fixing this in next commit
     public FacilityDto updateFacility(String shopId, FacilityDto facilityDto) {
-        Optional<Facility> facilityOptional = facilityRepository.findById(Long.parseLong(shopId));
+        Optional<Facility> facilityOptional = facilityRepository.findById(shopId);
 
         if (facilityOptional.isPresent()) {
             Facility facility = facilityOptional.get();
