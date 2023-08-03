@@ -10,22 +10,23 @@ import lombok.NoArgsConstructor;
 @Data
 public class ShopDto {
 
-    private String panCard;
+    private String panNumber;
 
     private String shopName;
 
     private String ownerName;
 
+    // Not required but will see in future whether to remove or not
     private String nickName;
 
     private String description;
 
     private List<String> images;
 
-    private String contactId;
+    //private ContactDto contactDto;
 
-    public static interface PanCardStep {
-        ShopNameStep withPanCard(String panCard);
+    public static interface panNumberStep {
+        ShopNameStep withpanNumber(String panNumber);
     }
 
     public static interface ShopNameStep {
@@ -45,11 +46,7 @@ public class ShopDto {
     }
 
     public static interface ImagesStep {
-        ContactIdStep withImages(List<String> images);
-    }
-
-    public static interface ContactIdStep {
-        BuildStep withContactId(String contactId);
+        BuildStep withImages(List<String> images);
     }
 
     public static interface BuildStep {
@@ -57,9 +54,9 @@ public class ShopDto {
     }
 
     public static class Builder
-        implements PanCardStep, ShopNameStep, OwnerNameStep, NickNameStep, DescriptionStep,
-        ImagesStep, ContactIdStep, BuildStep {
-        private String panCard;
+        implements panNumberStep, ShopNameStep, OwnerNameStep, NickNameStep, DescriptionStep,
+        ImagesStep, BuildStep {
+        private String panNumber;
 
         private String shopName;
 
@@ -71,18 +68,16 @@ public class ShopDto {
 
         private List<String> images;
 
-        private String contactId;
-
         private Builder() {
         }
 
-        public static PanCardStep shopDto() {
+        public static panNumberStep shopDto() {
             return new Builder();
         }
 
         @Override
-        public ShopNameStep withPanCard(String panCard) {
-            this.panCard = panCard;
+        public ShopNameStep withpanNumber(String panNumber) {
+            this.panNumber = panNumber;
             return this;
         }
 
@@ -111,27 +106,20 @@ public class ShopDto {
         }
 
         @Override
-        public ContactIdStep withImages(List<String> images) {
+        public BuildStep withImages(List<String> images) {
             this.images = images;
-            return this;
-        }
-
-        @Override
-        public BuildStep withContactId(String contactId) {
-            this.contactId = contactId;
             return this;
         }
 
         @Override
         public ShopDto build() {
             return new ShopDto(
-                this.panCard,
+                this.panNumber,
                 this.shopName,
                 this.ownerName,
                 this.nickName,
                 this.description,
-                this.images,
-                this.contactId
+                this.images
             );
         }
     }

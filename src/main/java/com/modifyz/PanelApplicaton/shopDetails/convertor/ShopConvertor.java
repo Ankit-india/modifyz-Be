@@ -9,13 +9,12 @@ public class ShopConvertor {
 
     public Shop convert(ShopDto shopDto) {
         Shop shop = Shop.Builder.shop()
-            .withPanCard(shopDto.getPanCard())
+            .withpanNumber(shopDto.getPanNumber())
             .withShopName(shopDto.getShopName())
             .withOwnerName(shopDto.getOwnerName())
             .withNickName(shopDto.getNickName())
             .withDescription(shopDto.getDescription())
             .withImages(shopDto.getImages())
-            .withContactId(shopDto.getContactId())
             .build();
         return shop;
     }
