@@ -39,29 +39,20 @@ public class FacilityServiceImpl implements FacilityService {
         return facilityDto;
     }
 
-    // TODO -- will be fixing this in next commit
-    public FacilityDto updateFacility(String shopId, FacilityDto facilityDto) {
-        Optional<Facility> facilityOptional = facilityRepository.findById(shopId);
+    public FacilityDto updateFacility(String shopId, String facilityId, FacilityDto facilityDto) {
+        Facility facility = facilityRepository.findByShopIdAndFacilityId(shopId, facilityId);
 
-        if (facilityOptional.isPresent()) {
-            Facility facility = facilityOptional.get();
+        facility.setServiceName(facilityDto.getServiceName());
+        facility.setPrice(facilityDto.getPrice());
+        facility.setImage(facilityDto.getImage());
+        facility.setEstimatedTime(facilityDto.getEstimatedTime());
+        facility.setTimeUnit(facilityDto.getTimeUnit());
 
-            facility.setServiceName(facilityDto.getServiceName());
-            facility.setPrice(facilityDto.getPrice());
-            facility.setImage(facilityDto.getImage());
-            facility.setEstimatedTime(facilityDto.getEstimatedTime());
-            facility.setTimeUnit(facilityDto.getTimeUnit());
+        facility = facilityRepository.save(facility);
 
-            facility = facilityRepository.save(facility);
-
-            FacilityDto updatedFacilityDto = facilityConvertor.convertDto(facility);
-            return updatedFacilityDto;
-        }
-        else {
-            throw new RuntimeException("Cannot Find the Facility");
-        }
+        FacilityDto updatedFacilityDto = facilityConvertor.convertDto(facility);
+        return updatedFacilityDto;
     }
-
 
     public List<FacilityDto> getFacilityByShopId(String shopId) {
         List<Facility> facilityList = facilityRepository.findFacilityByShopId(shopId);

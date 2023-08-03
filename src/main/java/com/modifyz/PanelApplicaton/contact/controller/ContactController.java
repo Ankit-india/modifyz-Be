@@ -3,6 +3,7 @@ package com.modifyz.PanelApplicaton.contact.controller;
 import com.modifyz.PanelApplicaton.contact.domain.Contact;
 import com.modifyz.PanelApplicaton.contact.dto.ContactDto;
 import com.modifyz.PanelApplicaton.contact.service.ContactService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -29,5 +30,10 @@ public class ContactController {
     @GetMapping(value = "/shop/{shopId}")
     public ResponseEntity<Contact> getContactByShopId(@PathVariable String shopId) {
         return new ResponseEntity<>(contactService.getContactByShopId(shopId), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/allContact")
+    public ResponseEntity<List<ContactDto>> getAllContact() {
+        return new ResponseEntity<>(contactService.getAllContact(), HttpStatus.OK);
     }
 }

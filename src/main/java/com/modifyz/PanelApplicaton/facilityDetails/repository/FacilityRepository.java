@@ -12,4 +12,7 @@ public interface FacilityRepository extends JpaRepository<Facility, String> {
 
     @Query(value = "SELECT * FROM facility WHERE is_deleted = false AND shop_id = ?1 AND service_name = ?2", nativeQuery = true)
     Facility getFacilityByShopIdAndServiceName(String shopId, String facilityName);
+
+    @Query(value = "SELECT * FROM facility WHERE is_deleted = false AND shop_id = ?1 AND id = ?2", nativeQuery = true)
+    Facility findByShopIdAndFacilityId(String shopId, String facilityId);
 }

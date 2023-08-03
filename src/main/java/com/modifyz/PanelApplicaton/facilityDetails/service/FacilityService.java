@@ -8,7 +8,7 @@ public interface FacilityService {
 
     FacilityDto createFacility(FacilityDto facilityDto);
 
-    FacilityDto updateFacility(String shopId, FacilityDto facilityDto);
+    FacilityDto updateFacility(String shopId, String facilityId,FacilityDto facilityDto);
 
     List<FacilityDto> getFacilityByShopId(String shopId);
 

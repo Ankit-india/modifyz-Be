@@ -2,7 +2,9 @@ package com.modifyz.PanelApplicaton.contact.convertor;
 
 import com.modifyz.PanelApplicaton.contact.domain.Contact;
 import com.modifyz.PanelApplicaton.contact.dto.ContactDto;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,5 +28,16 @@ public class ContactConvertor {
             .withAlternateMobileNumber(contact.getAlternateMobileNumber())
             .withAddress(contact.getAddress())
             .build();
+    }
+
+    public List<ContactDto> convertToDtoList(List<Contact> contactList) {
+        List<ContactDto> contactDtoList = contactList.stream()
+            .map(contact -> {
+                ContactDto contactDto = convertToDto(contact);
+                return contactDto;
+            })
+            .collect(Collectors.toList());
+
+        return contactDtoList;
     }
 }

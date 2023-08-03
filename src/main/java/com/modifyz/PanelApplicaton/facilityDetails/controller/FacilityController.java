@@ -27,10 +27,10 @@ public class FacilityController {
         return new ResponseEntity<>(facility, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{shopId}")
-    public ResponseEntity<FacilityDto> updateFacility(@PathVariable String shopId,
-        @RequestBody FacilityDto facilityDto) {
-        FacilityDto facility = facilityService.updateFacility(shopId, facilityDto);
+    @PutMapping("/updateFacility")
+    public ResponseEntity<FacilityDto> updateFacility(@RequestParam String shopId,
+        @RequestParam String facilityId, @RequestBody FacilityDto facilityDto) {
+        FacilityDto facility = facilityService.updateFacility(shopId, facilityId, facilityDto);
         return new ResponseEntity<>(facility, HttpStatus.OK);
     }
 
@@ -40,11 +40,11 @@ public class FacilityController {
         return new ResponseEntity<>(facilitiesList, HttpStatus.OK);
     }
 
-    // TODO -- Dev Test is pending
-    @GetMapping("/{shopId}/getFacility/{serviceName}")
+    @GetMapping("/{shopId}/getFacility/")
     public ResponseEntity<FacilityDto> getFacilityByServiceName(@PathVariable String shopId,
         @RequestParam String serviceName) {
-        FacilityDto facility = facilityService.getFacilityByShopIdAndServiceName(shopId, serviceName);
+        FacilityDto facility =
+            facilityService.getFacilityByShopIdAndServiceName(shopId, serviceName);
         return new ResponseEntity<>(facility, HttpStatus.OK);
     }
 }

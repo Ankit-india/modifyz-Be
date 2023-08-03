@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Contact extends GenericAbstract {
 
-    @Column(name = "shopId", nullable = false)
+    @Column(name = "shopId", nullable = false, unique = true)
     private String shopId;
 
     @Column(name = "mobileNumber")

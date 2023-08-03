@@ -5,6 +5,7 @@ import com.modifyz.PanelApplicaton.contact.domain.Contact;
 import com.modifyz.PanelApplicaton.contact.dto.ContactDto;
 import com.modifyz.PanelApplicaton.contact.repository.ContactRepository;
 import com.modifyz.PanelApplicaton.contact.service.ContactService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class ContactServiceImpl implements ContactService {
 
     @Override public Contact getContactByShopId(String shopId) {
         return contactRepository.getContactByShopId(shopId);
+    }
+
+    @Override public List<ContactDto> getAllContact() {
+        List<Contact> contactList = contactRepository.findAll();
+        List<ContactDto> contactDtoList = contactConvertor.convertToDtoList(contactList);
+
+        return contactDtoList;
     }
 }
