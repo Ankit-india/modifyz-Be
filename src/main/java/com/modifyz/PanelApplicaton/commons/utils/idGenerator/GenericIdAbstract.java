@@ -1,9 +1,6 @@
 package com.modifyz.PanelApplicaton.commons.utils.idGenerator;
 
 
-import jakarta.persistence.Convert;
-import jakarta.persistence.Table;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +14,7 @@ import jakarta.persistence.PrePersist;
 @AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
-public class GenericAbstract {
+public class GenericIdAbstract {
 
     @Id
     private String id;
