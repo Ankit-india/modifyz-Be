@@ -1,10 +1,11 @@
 package com.modifyz.commons.login.loginController;
 
+import com.modifyz.commons.common.ApiResponse;
 import com.modifyz.commons.login.service.LoginService;
 import com.modifyz.commons.twilio.dto.NotificationRequestDto;
+import com.modifyz.commons.twilio.dto.NotificationResponseDto;
 import org.hibernate.cache.CacheException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,11 +20,12 @@ public class LoginController {
     @Autowired LoginService loginService;
 
     @PostMapping("/")
-    public ResponseEntity<String> login(@RequestParam String phoneNumber, @RequestParam String gender) {
+    public ResponseEntity<ApiResponse<NotificationResponseDto>> login(@RequestParam String phoneNumber, @RequestParam String gender) {
         try{
-            loginService.login(phoneNumber, gender);
+            NotificationResponseDto notificationResponseDto = loginService.login(phoneNumber, gender);
             System.out.println("Successfully logged in");
-            return new ResponseEntity<>("Successfully logged In", HttpStatus.OK);
+            return ResponseEntity.ok(
+                ApiResponse.success("Successfully logged in", notificationResponseDto));
         }
         catch (Exception e){
             throw new CacheException("UnSuccessful" + e.getMessage());
@@ -31,9 +33,10 @@ public class LoginController {
     }
 
     @PostMapping("/validateOtp")
-    public ResponseEntity<String> verifyOtp(
+    public ResponseEntity<ApiResponse<String>> verifyOtp(
         @RequestBody NotificationRequestDto notificationRequestDto) {
         String response = loginService.validateUser(notificationRequestDto);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return ResponseEntity.ok(
+            ApiResponse.success("Successfully validate the user", response));
     }
 }
