@@ -5,7 +5,7 @@ import com.modifyz.commons.twilio.dto.NotificationResponseDto;
 
 public interface LoginService {
 
-    NotificationResponseDto login(String phoneNumber);
+    NotificationResponseDto login(String phoneNumber, String Gender);
 
     String validateUser(NotificationRequestDto notificationRequestDto);
 }

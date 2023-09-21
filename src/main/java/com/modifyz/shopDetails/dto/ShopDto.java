@@ -17,22 +17,34 @@ public class ShopDto {
 
     private String description;
 
+    // Need to store images in S3 instances
     private List<String> images;
 
-    //private ContactDto contactDto;
+    private String mobileNumber;
+
+    private String alternateMobileNumber;
+
+    private String address;
+
+    private String chair;
 
     public ShopDto(String panNumber, String shopName, String ownerName, String nickName,
-        String description, List<String> images) {
+        String description, List<String> images, String mobileNumber, String alternateMobileNumber,
+        String address, String chair) {
         this.panNumber = panNumber;
         this.shopName = shopName;
         this.ownerName = ownerName;
         this.nickName = nickName;
         this.description = description;
         this.images = images;
+        this.mobileNumber = mobileNumber;
+        this.alternateMobileNumber = alternateMobileNumber;
+        this.address = address;
+        this.chair = chair;
     }
 
-    public static interface panNumberStep {
-        ShopNameStep withpanNumber(String panNumber);
+    public static interface PanNumberStep {
+        ShopNameStep withPanNumber(String panNumber);
     }
 
     public static interface ShopNameStep {
@@ -52,7 +64,23 @@ public class ShopDto {
     }
 
     public static interface ImagesStep {
-        BuildStep withImages(List<String> images);
+        MobileNumberStep withImages(List<String> images);
+    }
+
+    public static interface MobileNumberStep {
+        AlternateMobileNumberStep withMobileNumber(String mobileNumber);
+    }
+
+    public static interface AlternateMobileNumberStep {
+        AddressStep withAlternateMobileNumber(String alternateMobileNumber);
+    }
+
+    public static interface AddressStep {
+        ChairStep withAddress(String address);
+    }
+
+    public static interface ChairStep {
+        BuildStep withChair(String chair);
     }
 
     public static interface BuildStep {
@@ -60,8 +88,8 @@ public class ShopDto {
     }
 
     public static class Builder
-        implements panNumberStep, ShopNameStep, OwnerNameStep, NickNameStep, DescriptionStep,
-        ImagesStep, BuildStep {
+        implements PanNumberStep, ShopNameStep, OwnerNameStep, NickNameStep, DescriptionStep,
+        ImagesStep, MobileNumberStep, AlternateMobileNumberStep, AddressStep, ChairStep, BuildStep {
         private String panNumber;
 
         private String shopName;
@@ -74,15 +102,23 @@ public class ShopDto {
 
         private List<String> images;
 
+        private String mobileNumber;
+
+        private String alternateMobileNumber;
+
+        private String address;
+
+        private String chair;
+
         private Builder() {
         }
 
-        public static panNumberStep shopDto() {
+        public static PanNumberStep shopDto() {
             return new Builder();
         }
 
         @Override
-        public ShopNameStep withpanNumber(String panNumber) {
+        public ShopNameStep withPanNumber(String panNumber) {
             this.panNumber = panNumber;
             return this;
         }
@@ -112,8 +148,32 @@ public class ShopDto {
         }
 
         @Override
-        public BuildStep withImages(List<String> images) {
+        public MobileNumberStep withImages(List<String> images) {
             this.images = images;
+            return this;
+        }
+
+        @Override
+        public AlternateMobileNumberStep withMobileNumber(String mobileNumber) {
+            this.mobileNumber = mobileNumber;
+            return this;
+        }
+
+        @Override
+        public AddressStep withAlternateMobileNumber(String alternateMobileNumber) {
+            this.alternateMobileNumber = alternateMobileNumber;
+            return this;
+        }
+
+        @Override
+        public ChairStep withAddress(String address) {
+            this.address = address;
+            return this;
+        }
+
+        @Override
+        public BuildStep withChair(String chair) {
+            this.chair = chair;
             return this;
         }
 
@@ -125,7 +185,11 @@ public class ShopDto {
                 this.ownerName,
                 this.nickName,
                 this.description,
-                this.images
+                this.images,
+                this.mobileNumber,
+                this.alternateMobileNumber,
+                this.address,
+                this.chair
             );
         }
     }

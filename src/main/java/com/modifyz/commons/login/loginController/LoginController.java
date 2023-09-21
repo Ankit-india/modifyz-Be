@@ -19,9 +19,10 @@ public class LoginController {
     @Autowired LoginService loginService;
 
     @PostMapping("/")
-    public ResponseEntity<String> login(@RequestParam String phoneNumber) {
+    public ResponseEntity<String> login(@RequestParam String phoneNumber, @RequestParam String gender) {
         try{
-            loginService.login(phoneNumber);
+            loginService.login(phoneNumber, gender);
+            System.out.println("Successfully logged in");
             return new ResponseEntity<>("Successfully logged In", HttpStatus.OK);
         }
         catch (Exception e){

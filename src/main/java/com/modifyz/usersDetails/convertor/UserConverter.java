@@ -12,6 +12,7 @@ public class UserConverter {
             .withName(userDto.getName())
             .withPhoneNumber(userDto.getPhoneNumber())
             .withLocation(userDto.getLocation())
+            .withGender(userDto.getGender())
             .withIsLoggedIn(false)
             .build();
     }
@@ -21,6 +22,7 @@ public class UserConverter {
             .withName(user.getName())
             .withPhoneNumber(user.getPhoneNumber())
             .withLocation(user.getLocation())
+            .withGender(user.getGender())
             .build();
     }
 }

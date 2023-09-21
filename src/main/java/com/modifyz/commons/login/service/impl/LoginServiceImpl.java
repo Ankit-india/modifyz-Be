@@ -22,7 +22,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public NotificationResponseDto login(String phoneNumber) {
+    public NotificationResponseDto login(String phoneNumber, String gender) {
         // TODO : fetch user location from Google API
         User user = userRepository.findByPhoneNumber(phoneNumber);
         if(user == null) {
@@ -31,6 +31,7 @@ public class LoginServiceImpl implements LoginService {
                     .withName(null)
                     .withPhoneNumber(phoneNumber)
                     .withLocation(null)
+                    .withGender(gender)
                     .build()
             );
         }

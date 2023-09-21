@@ -36,22 +36,22 @@ public class Shop extends GenericIdAbstract {
     @Column(name = "images")
     private List<String> images;
 
-    //@Column(name = "contactId")
-    //private String contactId;
+    @Column(name = "chairDetails")
+    private String chairDetails;
 
     public Shop(String panNumber, String shopName, String ownerName, String nickName,
-        String description,
-        List<String> images) {
+        String description, List<String> images, String chairDetails) {
         this.panNumber = panNumber;
         this.shopName = shopName;
         this.ownerName = ownerName;
         this.nickName = nickName;
         this.description = description;
         this.images = images;
+        this.chairDetails = chairDetails;
     }
 
-    public static interface panNumberStep {
-        ShopNameStep withpanNumber(String panNumber);
+    public static interface PanNumberStep {
+        ShopNameStep withPanNumber(String panNumber);
     }
 
     public static interface ShopNameStep {
@@ -71,7 +71,11 @@ public class Shop extends GenericIdAbstract {
     }
 
     public static interface ImagesStep {
-        BuildStep withImages(List<String> images);
+        ChairDetailsStep withImages(List<String> images);
+    }
+
+    public static interface ChairDetailsStep {
+        BuildStep withChairDetails(String chairDetails);
     }
 
     public static interface BuildStep {
@@ -79,8 +83,8 @@ public class Shop extends GenericIdAbstract {
     }
 
     public static class Builder
-        implements panNumberStep, ShopNameStep, OwnerNameStep, NickNameStep, DescriptionStep,
-        ImagesStep, BuildStep {
+        implements PanNumberStep, ShopNameStep, OwnerNameStep, NickNameStep, DescriptionStep,
+        ImagesStep, ChairDetailsStep, BuildStep {
         private String panNumber;
 
         private String shopName;
@@ -93,15 +97,17 @@ public class Shop extends GenericIdAbstract {
 
         private List<String> images;
 
+        private String chairDetails;
+
         private Builder() {
         }
 
-        public static panNumberStep shop() {
+        public static PanNumberStep shop() {
             return new Builder();
         }
 
         @Override
-        public ShopNameStep withpanNumber(String panNumber) {
+        public ShopNameStep withPanNumber(String panNumber) {
             this.panNumber = panNumber;
             return this;
         }
@@ -131,8 +137,14 @@ public class Shop extends GenericIdAbstract {
         }
 
         @Override
-        public BuildStep withImages(List<String> images) {
+        public ChairDetailsStep withImages(List<String> images) {
             this.images = images;
+            return this;
+        }
+
+        @Override
+        public BuildStep withChairDetails(String chairDetails) {
+            this.chairDetails = chairDetails;
             return this;
         }
 
@@ -144,7 +156,8 @@ public class Shop extends GenericIdAbstract {
                 this.ownerName,
                 this.nickName,
                 this.description,
-                this.images
+                this.images,
+                this.chairDetails
             );
         }
     }

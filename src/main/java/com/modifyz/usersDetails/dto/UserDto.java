@@ -11,10 +11,13 @@ public class UserDto {
 
     private String location;
 
-    public UserDto(String name, String phoneNumber, String location) {
+    private String gender;
+
+    public UserDto(String name, String phoneNumber, String location, String gender) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.location = location;
+        this.gender = gender;
     }
 
     public static interface NameStep {
@@ -26,19 +29,26 @@ public class UserDto {
     }
 
     public static interface LocationStep {
-        BuildStep withLocation(String location);
+        GenderStep withLocation(String location);
+    }
+
+    public static interface GenderStep {
+        BuildStep withGender(String gender);
     }
 
     public static interface BuildStep {
         UserDto build();
     }
 
-    public static class Builder implements NameStep, PhoneNumberStep, LocationStep, BuildStep {
+    public static class Builder
+        implements NameStep, PhoneNumberStep, LocationStep, GenderStep, BuildStep {
         private String name;
 
         private String phoneNumber;
 
         private String location;
+
+        private String gender;
 
         private Builder() {
         }
@@ -60,8 +70,14 @@ public class UserDto {
         }
 
         @Override
-        public BuildStep withLocation(String location) {
+        public GenderStep withLocation(String location) {
             this.location = location;
+            return this;
+        }
+
+        @Override
+        public BuildStep withGender(String gender) {
+            this.gender = gender;
             return this;
         }
 
@@ -70,7 +86,8 @@ public class UserDto {
             return new UserDto(
                 this.name,
                 this.phoneNumber,
-                this.location
+                this.location,
+                this.gender
             );
         }
     }

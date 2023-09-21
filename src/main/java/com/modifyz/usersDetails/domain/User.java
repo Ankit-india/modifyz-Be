@@ -24,6 +24,9 @@ public class User extends GenericIdAbstract {
     @Column(name = "location")
     private String location;
 
+    @Column(name = "gender")
+    private String gender;
+
     @Column(name = "isLoggedIn", nullable = false)
     private boolean isLoggedIn;
 
@@ -36,7 +39,11 @@ public class User extends GenericIdAbstract {
     }
 
     public static interface LocationStep {
-        IsLoggedInStep withLocation(String location);
+        GenderStep withLocation(String location);
+    }
+
+    public static interface GenderStep {
+        IsLoggedInStep withGender(String gender);
     }
 
     public static interface IsLoggedInStep {
@@ -48,12 +55,14 @@ public class User extends GenericIdAbstract {
     }
 
     public static class Builder
-        implements NameStep, PhoneNumberStep, LocationStep, IsLoggedInStep, BuildStep {
+        implements NameStep, PhoneNumberStep, LocationStep, GenderStep, IsLoggedInStep, BuildStep {
         private String name;
 
         private String phoneNumber;
 
         private String location;
+
+        private String gender;
 
         private boolean isLoggedIn;
 
@@ -77,8 +86,14 @@ public class User extends GenericIdAbstract {
         }
 
         @Override
-        public IsLoggedInStep withLocation(String location) {
+        public GenderStep withLocation(String location) {
             this.location = location;
+            return this;
+        }
+
+        @Override
+        public IsLoggedInStep withGender(String gender) {
+            this.gender = gender;
             return this;
         }
 
@@ -94,6 +109,7 @@ public class User extends GenericIdAbstract {
                 this.name,
                 this.phoneNumber,
                 this.location,
+                this.gender,
                 this.isLoggedIn
             );
         }

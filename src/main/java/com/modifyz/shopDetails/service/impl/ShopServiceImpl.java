@@ -1,5 +1,6 @@
 package com.modifyz.shopDetails.service.impl;
 
+import com.modifyz.contact.dto.ContactDto;
 import com.modifyz.contact.service.ContactService;
 import com.modifyz.shopDetails.convertor.ShopConvertor;
 import com.modifyz.shopDetails.domain.Shop;
@@ -25,8 +26,14 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public Shop createOrUpdate(ShopDto shopDto) {
-
         Shop shop = shopConvertor.convert(shopDto);
+        contactService.createOrUpdateContact(ContactDto.Builder.contactDto()
+            .withShopId(shop.getId())
+            .withMobileNumber(shopDto.getMobileNumber())
+            .withAlternateMobileNumber(shopDto.getAlternateMobileNumber())
+            .withAddress(shopDto.getAddress())
+            .build()
+        ).getId();
         shopRepository.save(shop);
         return shop;
     }
