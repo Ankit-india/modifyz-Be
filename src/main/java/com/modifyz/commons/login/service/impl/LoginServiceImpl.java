@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class LoginServiceImpl implements LoginService {
     @Autowired NotificationService notificationService;
-
     @Autowired UserService userService;
     @Autowired UserRepository userRepository;
 

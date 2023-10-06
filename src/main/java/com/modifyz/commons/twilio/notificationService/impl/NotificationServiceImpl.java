@@ -15,6 +15,7 @@ import java.util.Random;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.CacheException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,18 +28,21 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Autowired private NotificationConvertor notificationConvertor;
 
+    @Value("${notification.modifyz.sid}")
     private String ACCOUNT_SID;
 
+    @Value("${notification.modifyz.authToken}")
     private String AUTH_TOKEN;
 
     private Map<String, String> otpMap = new HashMap<>();
 
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public NotificationResponseDto sendOtp(
         String phoneNumber) {
+        System.out.println(ACCOUNT_SID);
+        System.out.println(AUTH_TOKEN);
         phoneNumber = getNormalizePhoneNumber(phoneNumber);
-        ACCOUNT_SID = env.getProperty("notification.modifyz.sid");
-        AUTH_TOKEN = env.getProperty("notification.modifyz.authToken");
         NotificationResponseDto notificationResponseDto = new NotificationResponseDto();
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);

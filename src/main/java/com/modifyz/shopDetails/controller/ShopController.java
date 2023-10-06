@@ -28,7 +28,7 @@ public class ShopController {
         return new ResponseEntity<>(shop, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/list/shop")
+    @GetMapping(value = "/list")
     public ResponseEntity<List<Shop>> getAllShops() {
         return new ResponseEntity<>(shopService.getAllShops(), HttpStatus.OK);
     }

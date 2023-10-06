@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NotificationRequestDto {
-    String phoneNumber;
+    private String phoneNumber;
 
-    String otp;
+    private String otp;
 
     public static interface PhoneNumberStep {
         OtpStep withPhoneNumber(String phoneNumber);

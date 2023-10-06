@@ -33,7 +33,7 @@ public class ShopServiceImpl implements ShopService {
             .withAlternateMobileNumber(shopDto.getAlternateMobileNumber())
             .withAddress(shopDto.getAddress())
             .build()
-        ).getId();
+        );
         shopRepository.save(shop);
         return shop;
     }

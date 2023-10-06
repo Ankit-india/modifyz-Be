@@ -1,4 +1,4 @@
-package com.modifyz.commons.connfig;
+package com.modifyz.commons.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
