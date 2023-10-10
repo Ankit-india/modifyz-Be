@@ -1,6 +1,5 @@
 package com.modifyz.shopDetails.dto;
 
-import java.util.List;
 import lombok.Data;
 
 @Data
@@ -17,9 +16,6 @@ public class ShopDto {
 
     private String description;
 
-    // Need to store images in S3 instances
-    private List<String> images;
-
     private String mobileNumber;
 
     private String alternateMobileNumber;
@@ -29,14 +25,13 @@ public class ShopDto {
     private String chair;
 
     public ShopDto(String panNumber, String shopName, String ownerName, String nickName,
-        String description, List<String> images, String mobileNumber, String alternateMobileNumber,
-        String address, String chair) {
+        String description, String mobileNumber, String alternateMobileNumber, String address,
+        String chair) {
         this.panNumber = panNumber;
         this.shopName = shopName;
         this.ownerName = ownerName;
         this.nickName = nickName;
         this.description = description;
-        this.images = images;
         this.mobileNumber = mobileNumber;
         this.alternateMobileNumber = alternateMobileNumber;
         this.address = address;
@@ -60,11 +55,7 @@ public class ShopDto {
     }
 
     public static interface DescriptionStep {
-        ImagesStep withDescription(String description);
-    }
-
-    public static interface ImagesStep {
-        MobileNumberStep withImages(List<String> images);
+        MobileNumberStep withDescription(String description);
     }
 
     public static interface MobileNumberStep {
@@ -89,7 +80,7 @@ public class ShopDto {
 
     public static class Builder
         implements PanNumberStep, ShopNameStep, OwnerNameStep, NickNameStep, DescriptionStep,
-        ImagesStep, MobileNumberStep, AlternateMobileNumberStep, AddressStep, ChairStep, BuildStep {
+        MobileNumberStep, AlternateMobileNumberStep, AddressStep, ChairStep, BuildStep {
         private String panNumber;
 
         private String shopName;
@@ -99,8 +90,6 @@ public class ShopDto {
         private String nickName;
 
         private String description;
-
-        private List<String> images;
 
         private String mobileNumber;
 
@@ -142,14 +131,8 @@ public class ShopDto {
         }
 
         @Override
-        public ImagesStep withDescription(String description) {
+        public MobileNumberStep withDescription(String description) {
             this.description = description;
-            return this;
-        }
-
-        @Override
-        public MobileNumberStep withImages(List<String> images) {
-            this.images = images;
             return this;
         }
 
@@ -185,7 +168,6 @@ public class ShopDto {
                 this.ownerName,
                 this.nickName,
                 this.description,
-                this.images,
                 this.mobileNumber,
                 this.alternateMobileNumber,
                 this.address,

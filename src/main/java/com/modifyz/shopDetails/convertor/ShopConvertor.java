@@ -31,7 +31,7 @@ public class ShopConvertor {
             .withOwnerName(shopDto.getOwnerName())
             .withNickName(shopDto.getNickName())
             .withDescription(shopDto.getDescription())
-            .withImages(shopDto.getImages())
+            .withImages(null)
             .withChairDetails(chairInfoJson)
             .build();
         return shop;
