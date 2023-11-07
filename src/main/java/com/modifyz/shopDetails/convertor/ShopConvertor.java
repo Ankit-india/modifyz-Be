@@ -2,10 +2,14 @@ package com.modifyz.shopDetails.convertor;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.modifyz.contact.domain.Contact;
 import com.modifyz.contact.service.ContactService;
 import com.modifyz.shopDetails.domain.Shop;
 import com.modifyz.shopDetails.dto.ChairInfo;
 import com.modifyz.shopDetails.dto.ShopDto;
+import com.modifyz.shopDetails.dto.ShopInfo;
+import java.math.BigDecimal;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,5 +39,21 @@ public class ShopConvertor {
             .withChairDetails(chairInfoJson)
             .build();
         return shop;
+    }
+
+    public ShopInfo convertShopInfo(Shop shop) {
+        List<String> img = shop.getImages();
+        Contact contact = contactService.getContactByShopId(shop.getId());
+        return (
+            ShopInfo.Builder.shopInfo()
+                .withId(shop.getId())
+                .withImg(img.get(0))
+                .withName(shop.getShopName())
+                .withAddress(contact.getAddress())
+                .withDistance(
+                    BigDecimal.ZERO)
+                .withRating(BigDecimal.ONE)
+                .build()
+        );
     }
 }

@@ -2,6 +2,7 @@ package com.modifyz.shopDetails.controller;
 
 import com.modifyz.shopDetails.domain.Shop;
 import com.modifyz.shopDetails.dto.ShopDto;
+import com.modifyz.shopDetails.dto.ShopInfo;
 import com.modifyz.shopDetails.service.ShopService;
 import java.util.List;
 import java.util.Optional;
@@ -30,9 +31,9 @@ public class ShopController {
     private ShopService shopService;
 
     @PostMapping(value = "/addShop")
-    public ResponseEntity<Shop> addShop(@RequestParam("images") MultipartFile[] images, @RequestBody ShopDto shopDto) {
+    public ResponseEntity<Shop> addShop(@RequestBody ShopDto shopDto) {
         Shop shop = shopService.createOrUpdate(shopDto);
-        logger.info("{} images has been uploaded", images.length);
+        //logger.info("{} images has been uploaded", images.length);
         return new ResponseEntity<>(shop, HttpStatus.CREATED);
     }
 
@@ -49,5 +50,10 @@ public class ShopController {
     @GetMapping(value = "/{shopId}")
     public ResponseEntity<Optional<Shop>> getShopByid(@PathVariable String shopId) {
         return new ResponseEntity<>(shopService.getShopById(shopId), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/shopInfo")
+    public  ResponseEntity<List<ShopInfo>> getShopInfo() {
+        return new ResponseEntity<>(shopService.getShopInfo(), HttpStatus.OK);
     }
 }

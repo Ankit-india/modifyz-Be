@@ -42,6 +42,8 @@ public class NotificationServiceImpl implements NotificationService {
         String phoneNumber) {
         System.out.println(ACCOUNT_SID);
         System.out.println(AUTH_TOKEN);
+        System.out.println(phoneNumber);
+
         phoneNumber = getNormalizePhoneNumber(phoneNumber);
         NotificationResponseDto notificationResponseDto = new NotificationResponseDto();
 
@@ -89,7 +91,7 @@ public class NotificationServiceImpl implements NotificationService {
         if (phoneNumber.length() == 10) {
             return "+91" + phoneNumber;
         }
-        return phoneNumber;
+        return ("+" + phoneNumber);
     }
 
     private String getMessage(String otp) {

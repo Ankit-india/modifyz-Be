@@ -5,8 +5,10 @@ import com.modifyz.contact.service.ContactService;
 import com.modifyz.shopDetails.convertor.ShopConvertor;
 import com.modifyz.shopDetails.domain.Shop;
 import com.modifyz.shopDetails.dto.ShopDto;
+import com.modifyz.shopDetails.dto.ShopInfo;
 import com.modifyz.shopDetails.repository.ShopRepository;
 import com.modifyz.shopDetails.service.ShopService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +50,15 @@ public class ShopServiceImpl implements ShopService {
     public Optional<Shop> getShopById(String shopId) {
         Optional<Shop> shop = shopRepository.findById(shopId);
         return shop;
+    }
+
+    @Override public List<ShopInfo> getShopInfo() {
+        List<Shop> allShopList = getAllShops();
+        List<ShopInfo> shopInfoList = new ArrayList<>();
+        for(Shop shop: allShopList) {
+            ShopInfo shopInfo = shopConvertor.convertShopInfo(shop);
+            shopInfoList.add(shopInfo);
+        }
+        return shopInfoList;
     }
 }
