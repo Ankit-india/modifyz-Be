@@ -1,10 +1,8 @@
 package com.modifyz.commons.utils.idGenerator;
 
-import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 import java.time.Year;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.springframework.stereotype.Component;
 
 @Component
 public class EntityUniqueIdGenerator {
@@ -14,7 +12,7 @@ public class EntityUniqueIdGenerator {
     public String generateUniqueId() {
         String currentYear = String.valueOf(Year.now().getValue());
         String sequenceNumber = String.format("%05d", getNextSequence());
-
+        System.out.println((currentYear.substring(0,3) + sequenceNumber + System.currentTimeMillis()));
         return (currentYear + sequenceNumber + System.currentTimeMillis());
     }
 

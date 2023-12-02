@@ -28,16 +28,16 @@ public class LoginController {
     public ResponseEntity<ApiResponse<NotificationResponseDto>> login(@RequestParam String phoneNumber, @RequestParam String gender) {
         try{
             NotificationResponseDto notificationResponseDto;
-            //if (activeProfile.equalsIgnoreCase("dev")) {
-            //    notificationResponseDto = NotificationResponseDto.Builder.notificationResponseDto()
-            //        .withNotificationStatus(
-            //            NotificationStatus.DELIVERED)
-            //        .withMessage("Dev Environement")
-            //        .withOtp("111111")
-            //        .build();
-            //} else {
+            if (activeProfile.equalsIgnoreCase("dev")) {
+                notificationResponseDto = NotificationResponseDto.Builder.notificationResponseDto()
+                    .withNotificationStatus(
+                        NotificationStatus.DELIVERED)
+                    .withMessage("Dev Environement")
+                    .withOtp("111111")
+                    .build();
+            } else {
                 notificationResponseDto = loginService.login(phoneNumber, gender);
-            //}
+            }
             System.out.println("Successfully logged in");
             return ResponseEntity.ok(
                 ApiResponse.success("Successfully logged in", notificationResponseDto));
