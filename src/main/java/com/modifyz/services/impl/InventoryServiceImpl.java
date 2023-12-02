@@ -43,7 +43,6 @@ public class InventoryServiceImpl implements InventoryService {
                 throw new InterruptedException(e.getMessage());
             }
             inventoryRepository.save(inventory);
-            System.out.println(inventory.getId());
         }
         return "Successfully added Inventory";
     }

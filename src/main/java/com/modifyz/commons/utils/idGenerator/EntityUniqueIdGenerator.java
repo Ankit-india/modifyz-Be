@@ -12,7 +12,6 @@ public class EntityUniqueIdGenerator {
     public String generateUniqueId() {
         String currentYear = String.valueOf(Year.now().getValue());
         String sequenceNumber = String.format("%05d", getNextSequence());
-        System.out.println((currentYear.substring(0,3) + sequenceNumber + System.currentTimeMillis()));
         return (currentYear + sequenceNumber + System.currentTimeMillis());
     }
 
